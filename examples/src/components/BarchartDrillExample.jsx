@@ -1,6 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
 import React, { Component } from "react";
-import { PivotTable, HeaderPredicateFactory, Model } from "@gooddata/react-components";
+import { BarChart, HeaderPredicateFactory, Model } from "@gooddata/react-components";
 
 import "@gooddata/react-components/styles/css/main.css";
 
@@ -67,24 +67,13 @@ const totals = [
         attributeIdentifier: "menu",
     },
 ];
-const filters = [
-    {
-        positiveAttributeFilter: {
-            displayForm: {
-                identifier: "label.restaurantlocation.locationstate",
-            },
-            in: ["California"],
-            textFilter: true,
-        },
-    },
-];
 
 const drillableItems = [
     HeaderPredicateFactory.identifierMatch(menuCategoryAttributeDFIdentifier),
     HeaderPredicateFactory.identifierMatch(franchiseFeesIdentifier),
 ];
 
-export class PivotTableDrillExample extends Component {
+export class BarChartDrillExample extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -126,17 +115,15 @@ export class PivotTableDrillExample extends Component {
         return (
             <div>
                 {this.renderDrillValue()}
-                <div style={{ height: 500 }} className="s-pivot-table-drill">
-                    <PivotTable
+                <div style={{ height: 500 }} className="s-bar-chart-drill">
+                    <BarChart
                         projectId={projectId}
                         measures={measures}
-                        rows={attributes}
-                        columns={columns}
-                        pageSize={20}
+                        viewBy={attributes}
+                        // pageSize={20}
                         drillableItems={drillableItems}
                         onFiredDrillEvent={this.onDrill}
-                        totals={totals}
-                        filters={filters}
+                        // totals={totals}
                     />
                 </div>
             </div>
@@ -144,4 +131,4 @@ export class PivotTableDrillExample extends Component {
     }
 }
 
-export default PivotTableDrillExample;
+export default BarChartDrillExample;

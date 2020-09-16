@@ -1,6 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
 import React, { Component } from "react";
-import { PivotTable, HeaderPredicateFactory, Model } from "@gooddata/react-components";
+import { Table, HeaderPredicateFactory, Model } from "@gooddata/react-components";
 
 import "@gooddata/react-components/styles/css/main.css";
 
@@ -67,6 +67,11 @@ const totals = [
         attributeIdentifier: "menu",
     },
 ];
+
+const drillableItems = [
+    HeaderPredicateFactory.identifierMatch(menuCategoryAttributeDFIdentifier),
+    HeaderPredicateFactory.identifierMatch(franchiseFeesIdentifier),
+];
 const filters = [
     {
         positiveAttributeFilter: {
@@ -79,12 +84,7 @@ const filters = [
     },
 ];
 
-const drillableItems = [
-    HeaderPredicateFactory.identifierMatch(menuCategoryAttributeDFIdentifier),
-    HeaderPredicateFactory.identifierMatch(franchiseFeesIdentifier),
-];
-
-export class PivotTableDrillExample extends Component {
+export class TableDrillExample extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -127,11 +127,10 @@ export class PivotTableDrillExample extends Component {
             <div>
                 {this.renderDrillValue()}
                 <div style={{ height: 500 }} className="s-pivot-table-drill">
-                    <PivotTable
+                    <Table
                         projectId={projectId}
                         measures={measures}
-                        rows={attributes}
-                        columns={columns}
+                        attributes={attributes}
                         pageSize={20}
                         drillableItems={drillableItems}
                         onFiredDrillEvent={this.onDrill}
@@ -144,4 +143,4 @@ export class PivotTableDrillExample extends Component {
     }
 }
 
-export default PivotTableDrillExample;
+export default TableDrillExample;
